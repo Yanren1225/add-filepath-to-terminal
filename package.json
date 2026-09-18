@@ -1,0 +1,57 @@
+{
+  "name": "add-filepath-to-terminal",
+  "displayName": "Add Filepath to Terminal",
+  "description": "Send the active editor's file path (with optional selection line hint) to the most recently used terminal, compatible with @-mention CLIs like omp and opencode.",
+  "version": "0.1.0",
+  "publisher": "Yanren",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yanren1225/add-filepath-to-terminal.git"
+  },
+  "categories": ["Other"],
+  "keywords": ["terminal", "filepath", "ai", "agent", "mention", "omp", "opencode"],
+  "engines": { "vscode": "^1.80.0" },
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "addFilepathToTerminal.insert",
+        "title": "Add Filepath to Terminal",
+        "shortTitle": "Add Filepath to Terminal"
+      }
+    ],
+    "configuration": {
+      "title": "Add Filepath to Terminal",
+      "properties": {
+        "addFilepathToTerminal.mentionPrefix": {
+          "type": "string",
+          "default": "@",
+          "description": "Prefix inserted before the file path. Keep '@' for at-mention CLIs (omp, opencode, Claude Code); set to empty for a bare path."
+        },
+        "addFilepathToTerminal.lineHint": {
+          "type": "boolean",
+          "default": true,
+          "description": "Append a #L<start> / #L<start>-<end> hint when there is a non-empty selection."
+        },
+        "addFilepathToTerminal.lineHintSeparator": {
+          "type": "string",
+          "enum": ["separated", "attached"],
+          "default": "separated",
+          "description": "separated: '@path #L12' (omp-safe: the mention resolves and the hint stays prose). attached: '@path#L12' (opencode-native format)."
+        },
+        "addFilepathToTerminal.useAbsolutePath": {
+          "type": "boolean",
+          "default": false,
+          "description": "Insert the absolute file path instead of the workspace-relative path."
+        },
+        "addFilepathToTerminal.createTerminalIfMissing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open a new integrated terminal when there is no active terminal."
+        }
+      }
+    }
+  }
+}
